@@ -1,0 +1,7 @@
+langchain
+langchain_community
+langchain_huggingface
+flask
+faiss-gpu
+langchain_ollama
+pypdf
