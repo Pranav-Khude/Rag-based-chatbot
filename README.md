@@ -23,6 +23,14 @@ This is a Retrieval-Augmented Generation (RAG) chatbot built using LangChain, FA
 - Python 3.9+
 - Pip
 
+### Create a Virtual Environment
+It is recommended to create a virtual environment to manage dependencies independently.
+```bash
+python -m venv rag_env
+source rag_env/bin/activate  # On macOS/Linux
+rag_env\Scripts\activate    # On Windows
+```
+
 ### Install Dependencies
 ```bash
 pip install -r requirements.txt
@@ -32,7 +40,7 @@ pip install -r requirements.txt
 ### 1. Create the Vector Store
 Before using the chatbot, you need to create the FAISS vector store by running:
 ```bash
-python utils/embeddings.py
+python embeddings.py
 ```
 This will process documents and store their embeddings in `embeddings/faiss_index`.
 
@@ -66,7 +74,7 @@ curl -X POST "http://127.0.0.1:5000/query" \
 ### Document Processing (`chunking.py`)
 - Loads text and PDF files from `data/`.
 - Splits documents into 500-character chunks with a 50-character overlap using `RecursiveCharacterTextSplitter`.
-- For different chunking method implementations, you can refer to my [this GitHub repository](https://github.com/Pranav-Khude/Chunking-Techniques-RAG).
+- For different chunking method implementations, refer to my [GitHub repository](https://github.com/Pranav-Khude/Chunking-Techniques-RAG).
 
 ### Query Handling (`app.py`)
 - The Flask API receives user queries.
@@ -76,5 +84,8 @@ curl -X POST "http://127.0.0.1:5000/query" \
 - Retrieves relevant documents.
 - Uses the `llama3.1` model via `OllamaLLM`.
 - Generates responses using a structured prompt.
+
+## Future Enhancements
+Follow my GitHub to stay updated on future enhancements.
 
 
