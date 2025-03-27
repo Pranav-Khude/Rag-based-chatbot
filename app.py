@@ -3,7 +3,7 @@ from llm.llm_inference import get_response
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
+@app.route("/health", methods=["GET"])
 def index():
     return "Hello, World!"
 
