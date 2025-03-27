@@ -9,11 +9,13 @@ def create_vector_store():
     docs = load_documents()
     embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
-    # Use absolute path for vector store
     vector_store_path = "embeddings/faiss_index"
     
     vector_store = FAISS.from_documents(docs, embedding_model)
     vector_store.save_local(vector_store_path)
+
+    # default index IndexFlatL2
+    print(type(vector_store.index)) 
     print("Vector store created successfully!")
 
 def get_retriever():
