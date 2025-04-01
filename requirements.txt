@@ -5,3 +5,5 @@ flask
 faiss-gpu
 langchain_ollama
 pypdf
+rank_bm25
+nltk
