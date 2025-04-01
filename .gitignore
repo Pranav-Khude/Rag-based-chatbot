@@ -1,3 +1,7 @@
 /rag_chat
 /utils/__pycache__
 /llm/__pycache__
+/utils/faiss_details.py
+/utils/faiss_viewEmbeddings.py
+/utils/faiss_viewEmbeddings.py
+/utils/view_index(pkl).py
