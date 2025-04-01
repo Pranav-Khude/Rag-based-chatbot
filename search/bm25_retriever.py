@@ -57,10 +57,11 @@ if __name__ == "__main__":
     retriever.fit()
 
     # Test retrieval with a sample query
-    query = "Urinary tract infection treatment"
-    results = retriever.retrieve(query, top_k=5)
+    query = "explain hypertension"
+    results = retriever.retrieve(query, top_k=4)
 
     print("\nTop retrieved documents:")
+    # print(results[0].keys())
     for res in results:
         print(f"Index: {res['index']}, Score: {res['score']:.4f}")
         print(f"Text: {res['text']}\n")
