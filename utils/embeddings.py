@@ -16,7 +16,12 @@ class EmbeddingsHandler:
         print("Vector store created successfully!")
 
     def get_retriever(self):
-        if not os.path.exists(self.vector_store_path):
+        try:
+            vector_store = FAISS.load_local(self.vector_store_path, self.embedding_model, allow_dangerous_deserialization=True)
+        except Exception as e:
+            print(f"Error loading vector store: {e}. Creating a new one...")
             self.create_vector_store()
-        vector_store = FAISS.load_local(self.vector_store_path, self.embedding_model, allow_dangerous_deserialization=True)
+            vector_store = FAISS.load_local(self.vector_store_path, self.embedding_model, allow_dangerous_deserialization=True)
+
         return vector_store.as_retriever(search_kwargs={"k": 3})
+

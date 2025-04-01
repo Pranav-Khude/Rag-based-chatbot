@@ -2,8 +2,9 @@ langchain
 langchain_community
 langchain_huggingface
 flask
-faiss-gpu
+faiss-cpu
 langchain_ollama
 pypdf
 rank_bm25
 nltk
+numpy
