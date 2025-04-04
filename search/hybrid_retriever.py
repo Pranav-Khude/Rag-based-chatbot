@@ -100,7 +100,7 @@ class HybridRetriever:
                 'text': doc.page_content,
                 'score': norm_score,
                 'metadata': doc.metadata,
-                'source': 'semantic'  # Add source information
+                'source': 'semantic' 
             })
 
         # Combine results using weighted scores

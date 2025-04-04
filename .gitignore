@@ -5,3 +5,5 @@
 /utils/view_index(pkl).py
 faiss_test.ipynb
 /**/__pycache__
+.env
+Neo4j.txt

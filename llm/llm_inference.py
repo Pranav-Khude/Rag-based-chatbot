@@ -1,5 +1,5 @@
-import sys
-sys.path.append("D:/RAG Pipeline/RAG based chatbot/")
+# import sys
+# sys.path.append("D:/RAG Pipeline/RAG based chatbot/")
 
 from search.hybrid_retriever import HybridRetriever
 

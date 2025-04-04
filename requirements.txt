@@ -8,3 +8,12 @@ pypdf
 rank_bm25
 nltk
 numpy
+neo4j
+requests
+instructor
+python-dotenv
+langchain_groq
+langchain_experimental
+pymongo
+bson
+jwt
