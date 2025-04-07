@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 from datetime import datetime, timedelta
 from typing import Optional
-import jwt
+import jwt 
 from config import MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM, SECRET_KEY
 
 ALGORITHM = "HS256"
@@ -24,9 +24,9 @@ def send_verification_email(email: str, token: str):
         <body>
             <h3>Hello,</h3>
             <p>Thank you for registering. Please verify your email by clicking the link below:</p>
-            <p><a href='http://localhost:5000/auth/verify_email?token={token}'>Verify Email</a></p>
+            <p><a href='http://localhost:5000/api/auth/verify_email?token={token}'>Verify Email</a></p>
             <p>This link will expire in 24 hours.</p>
-            <p>Best regards,<br>Your Flask Team</p>
+            <p>Best regards,<br>ChatBot Team</p>
         </body>
     </html>
     """
