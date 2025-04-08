@@ -13,3 +13,4 @@ MAIL_PASSWORD = "sugqhdzxxrdwdxfr"
 MAIL_FROM = os.getenv("MAIL_FROM")
 MODEL_PATH= os.getenv("MODEL_PATH","./ml_models")
 ALLOWED_ORIGINS= os.getenv("ALLOWED_ORIGINS",["http://localhost:3000"])
+

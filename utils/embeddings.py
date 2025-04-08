@@ -23,5 +23,5 @@ class EmbeddingsHandler:
             self.create_vector_store()
             vector_store = FAISS.load_local(self.vector_store_path, self.embedding_model, allow_dangerous_deserialization=True)
 
-        return vector_store.as_retriever(search_kwargs={"k": 3})
+        return vector_store.as_retriever(search_kwargs={"k": 3,"score_threshold":0.4})
 
