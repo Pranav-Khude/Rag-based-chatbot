@@ -5,7 +5,8 @@ import jwt
 from datetime import datetime, timedelta
 from config import MONGO_DETAILS, SECRET_KEY
 from auth.utils import send_verification_email, create_verification_token
-from auth.models import UserSignup, UserLogin
+from auth.models import UserSignup, UserLogin, UserResponse
+import uuid
 
 auth_router = Blueprint('auth', __name__)
 client = MongoClient(MONGO_DETAILS)
@@ -23,8 +24,10 @@ def signup():
     if existing_user:
         return jsonify({"error": "Email already registered"}), 400
 
+    user_id = str(uuid.uuid4())
     hashed_pw = generate_password_hash(data['password'])
     user = {
+        "user_id": user_id,
         "email": data["email"],
         "username": data["username"],
         "password": hashed_pw,
@@ -34,7 +37,13 @@ def signup():
     user_collection.insert_one(user)
     token = create_verification_token(data["email"], timedelta(hours=24)) 
     send_verification_email(data["email"], token)
-    return jsonify({"msg": "User created, please verify email"}), 201
+    
+    user_response = UserResponse(
+        user_id=user_id,
+        email=data["email"],
+        username=data["username"]
+    )
+    return jsonify({"msg": "User created, please verify email", "user": user_response.dict()}), 201
 
 @auth_router.route('/verify_email', methods=['GET'])
 def verify_email():
@@ -51,7 +60,13 @@ def verify_email():
         if user.get("verified", False):
             return jsonify({"msg": "Email already verified"}), 200
         user_collection.update_one({"email": email}, {"$set": {"verified": True}})
-        return jsonify({"msg": "Email verified successfully"}), 200
+        
+        user_response = UserResponse(
+            user_id=user["user_id"],
+            email=user["email"],
+            username=user["username"]
+        )
+        return jsonify({"msg": "Email verified successfully", "user": user_response.dict()}), 200
     except jwt.ExpiredSignatureError:
         return jsonify({"error": "Token expired"}), 400
     except jwt.InvalidTokenError:
@@ -72,14 +87,20 @@ def login():
         return jsonify({"error": "Email not verified"}), 400
 
     token = jwt.encode({
+        "user_id": user["user_id"],
         "email": user["email"],
         "exp": datetime.utcnow() + timedelta(days=1)
     }, SECRET_KEY, algorithm="HS256")
 
+    user_response = UserResponse(
+        user_id=user["user_id"],
+        email=user["email"],
+        username=user["username"]
+    )
     return jsonify({
         "access_token": token,
         "token_type": "bearer",
-        "username": user["username"]
+        "user": user_response.dict()
     }), 200
 
 @auth_router.route('/test_email', methods=['GET'])
